@@ -1,8 +1,9 @@
 <%@page import="jdk.nashorn.internal.ir.RuntimeNode.Request"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1" %>
-	<%@ page import="java.util.*" %>
-	<%@ page import="ChatClasses.*" %>
+	pageEncoding="ISO-8859-1"%>
+<%@ page import="java.util.*"%>
+<%@ page import="ChatClasses.*"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,47 +12,45 @@
 </head>
 <body>
 	<%
-		
-Map<String,String> userpassMap =  new HashMap<String,String>();
-		
-		userpassMap.put("zeinab", "zeinab");
-		userpassMap.put("zahra", "zahra");
-		userpassMap.put("narges", "narges");
-		userpassMap.put("ali", "ali");
-		userpassMap.put("goli", "goli");
-		
+		EntityManager entityManager = new EntityManager();
+		ArrayList<User> users = new ArrayList<User>();
+		users = entityManager.listUsers();
+
 		ArrayList<String> freeUsers = new ArrayList<String>();
 		ArrayList<ChatGroup> chatGroupArraye = new ArrayList<ChatGroup>();
 
 		String username = request.getParameter("inputusername");
 		String password = request.getParameter("inputPassword3");
 		String messag = "";
+		boolean usernameExist = false;
 
-		if(userpassMap.containsKey(username)==true){
-			if(password.equals(userpassMap.get(username))==true){
-				HttpSession sesssion = request.getSession();
-				sesssion.setAttribute("id", username);
-				messag = "loggin successful";
-				
-				freeUsers.add(username);
-				session.setAttribute("id", freeUsers.get(0));
-			    session.setAttribute("freeUsersSesssion", freeUsers);
-		     	 session.setAttribute("chatGroupSession", chatGroupArraye);
-				%>
-				<jsp:forward page = "ListUserChatReq.jsp" />
-				<% 
-				//break;
-				//request.getSession().setAttribute("isLoggedIn",true);
-			}else{
-				messag = "password is not correct";
+		for (User u : users) {
+			if (u.getUsername().equals(username) == true) {
+				usernameExist = true;
+				if (u.getPassword().equals(password) == true) {
+					HttpSession sesssion = request.getSession();
+					sesssion.setAttribute("id", u.getUsername());
+					entityManager.updateFreeUser(u.getUsername(), 1);
+
+					messag = "loggin successful";
+	%>
+	<jsp:forward page="ListUserChatReq.jsp" />
+	<%
+		break;
+
+				} else {
+					messag = "password is not correct";
+					break;
+				}
 			}
-		}else{
-			messag = "username not found";
 		}
 
+		if (usernameExist == false) {
+			messag = "username not found";
+		}
 		response.getWriter().append(messag);
 	%>
-	
+
 
 </body>
 </html>

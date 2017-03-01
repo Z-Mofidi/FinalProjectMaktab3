@@ -1,16 +1,14 @@
 package ChatClasses;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ChatGroup {
-	
+
 	private String name;
-	private Map<String,Boolean> userGroup =  new HashMap<>();
+	private ArrayList<UserGroup> userGroup = new ArrayList<UserGroup>();
 	private ArrayList<Msg> msg = new ArrayList<Msg>();
-	
-	public ChatGroup(String name , Map<String,Boolean> userGroup){
+
+	public ChatGroup(String name, ArrayList<UserGroup> userGroup) {
 		this.name = name;
 		this.userGroup = userGroup;
 	}
@@ -23,11 +21,11 @@ public class ChatGroup {
 		this.name = name;
 	}
 
-	public Map<String, Boolean> getUserGroup() {
+	public ArrayList<UserGroup> getUserGroup() {
 		return userGroup;
 	}
 
-	public void setUserGroup(Map<String, Boolean> userGroup) {
+	public void setUserGroup(ArrayList<UserGroup> userGroup) {
 		this.userGroup = userGroup;
 	}
 
@@ -38,8 +36,5 @@ public class ChatGroup {
 	public void setMsg(ArrayList<Msg> msg) {
 		this.msg = msg;
 	}
-	
-	
-	
 
 }
