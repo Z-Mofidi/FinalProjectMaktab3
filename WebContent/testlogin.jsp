@@ -11,33 +11,47 @@
 </head>
 <body>
 	<%
-		ArrayList<User> users = new ArrayList<User>();
-		users.add(new User("zeinab", "zeinab"));
-		users.add(new User("zahra", "zahra"));
-		users.add(new User("narges", "narges"));
-		users.add(new User("ali", "ali"));
-		users.add(new User("goli", "goli"));
+		
+Map<String,String> userpassMap =  new HashMap<String,String>();
+		
+		userpassMap.put("zeinab", "zeinab");
+		userpassMap.put("zahra", "zahra");
+		userpassMap.put("narges", "narges");
+		userpassMap.put("ali", "ali");
+		userpassMap.put("goli", "goli");
+		
+		ArrayList<String> freeUsers = new ArrayList<String>();
+		ArrayList<ChatGroup> chatGroupArraye = new ArrayList<ChatGroup>();
 
 		String username = request.getParameter("inputusername");
-		String password = request.getParameter("inputpassword");
+		String password = request.getParameter("inputPassword3");
 		String messag = "";
 
-		for (User u : users) {
-			if(u.username.matches(username)){
-				if(u.password.matches(password)){
-					HttpSession sesssion = request.getSession();
-					sesssion.setAttribute("id", username);
-					messag = "loggin successful";
-					break;
-				}else{
-					messag = "password is not correct";
-					break;
-				}
+		if(userpassMap.containsKey(username)==true){
+			if(password.equals(userpassMap.get(username))==true){
+				HttpSession sesssion = request.getSession();
+				sesssion.setAttribute("id", username);
+				messag = "loggin successful";
+				
+				freeUsers.add(username);
+				session.setAttribute("id", freeUsers.get(0));
+			    session.setAttribute("freeUsersSesssion", freeUsers);
+		     	 session.setAttribute("chatGroupSession", chatGroupArraye);
+				%>
+				<jsp:forward page = "ListUserChatReq.jsp" />
+				<% 
+				//break;
+				//request.getSession().setAttribute("isLoggedIn",true);
+			}else{
+				messag = "password is not correct";
 			}
+		}else{
+			messag = "username not found";
 		}
-				messag = "username not found";
-			response.getWriter().append(messag);
+
+		response.getWriter().append(messag);
 	%>
+	
 
 </body>
 </html>

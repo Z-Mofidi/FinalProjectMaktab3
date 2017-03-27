@@ -7,10 +7,10 @@ import java.util.Map;
 public class ChatGroup {
 	
 	private String name;
-	private Map<String,Integer> userGroup =  new HashMap<>();
+	private Map<String,Boolean> userGroup =  new HashMap<>();
 	private ArrayList<Msg> msg = new ArrayList<Msg>();
 	
-	public ChatGroup(String name , Map<String,Integer> userGroup){
+	public ChatGroup(String name , Map<String,Boolean> userGroup){
 		this.name = name;
 		this.userGroup = userGroup;
 	}
@@ -23,11 +23,11 @@ public class ChatGroup {
 		this.name = name;
 	}
 
-	public Map<String, Integer> getUserGroup() {
+	public Map<String, Boolean> getUserGroup() {
 		return userGroup;
 	}
 
-	public void setUserGroup(Map<String, Integer> userGroup) {
+	public void setUserGroup(Map<String, Boolean> userGroup) {
 		this.userGroup = userGroup;
 	}
 
