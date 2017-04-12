@@ -108,10 +108,7 @@ function loadData() {
 					<label for="MsgContainer" class="col-sm-2 control-label">Chat
 						Massages:</label>
 					<div id="load_me" class="col-sm-4">
-						<textarea class="noresize" name="inputMassage1" rows="10"
-							cols="55">
-						
-						<%
+						<textarea class="noresize" name="inputMassage1" rows="10" cols="55"><%
 													for (int index = 0; index < chatGroupArraye.size(); index++) {
 														if (chatGroupArraye.get(index).getName().equals(session.getAttribute("chatGroupNameSession")) == true) {
 															for (int index2 = (chatGroupArraye.get(index).getMsg().size() - 1); index2 >= 0; index2--) {
@@ -123,9 +120,7 @@ function loadData() {
 																					break;
 																				}
 																			}
-																		%>
-						
-						</textarea>
+																		%></textarea>
 					</div>
 				</div>
 
