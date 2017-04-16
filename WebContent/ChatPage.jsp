@@ -81,20 +81,14 @@
 						Massages:</label>
 					<div id="load_me" class="col-sm-4">
 						<textarea class="noresize" name="inputMassage1" rows="10"
-							cols="55">
-						
-						<%
+							cols="55"><%
 													ArrayList<Msg> msgArray = entityManager
 															.listMsg(String.valueOf(session.getAttribute("chatGroupNameSession")));
 													for (int index = (msgArray.size() - 1); index >= 0; index--) {
 												%>
 									<%=msgArray.get(index).getUser()%>:
 									<%=msgArray.get(index).getMsg()%>									
-									<%
-																			}
-																		%>
-						
-						</textarea>
+									<%}%></textarea>
 					</div>
 				</div>
 
@@ -102,7 +96,7 @@
 					<label for="inputMassage" class="col-sm-2 control-label">Your
 						Massage:</label>
 					<div class="col-sm-4">
-						<textarea class="noresize" name="inputMassage" rows="5" cols="55"></textarea>
+						<textarea class="noresize" name="inputMassage" id="msg" rows="5" cols="55"></textarea>
 						<br>
 						<div onclick="$('#msg').val($('#msg').val() + '&#128516;');"
 							id="emoji" class="btn btn-default">&#128516;</div>
